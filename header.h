@@ -1,5 +1,5 @@
-#ifndef USER_H
-#define USER_H
+#ifndef HEADER_H
+#define HEADER_H
 
 #include <string>
 #include <vector>

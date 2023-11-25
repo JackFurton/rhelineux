@@ -1,10 +1,9 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
-#include "user.h"
+#include "header.h"
 
-//encryption function
-std::string encryption(const std::string& text, int shift) {
+std::string encrypt(const std::string& text, int shift) {
     std::string encryptedText = text;
 
     for (char &c : encryptedText) {
@@ -17,7 +16,3 @@ std::string encryption(const std::string& text, int shift) {
     return encryptedText;
 }
 
-//decryption function
-std::string decryption(const std::string& text, int shift) {
-    return encryption(text, 26 - shift);
-}
