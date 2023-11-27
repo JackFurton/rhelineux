@@ -1,3 +1,4 @@
+//-----------------------user.cpp----------------------
 #include <iostream>
 #include <vector>
 #include <stdio.h>
@@ -21,4 +22,3 @@ void displayUsers(const std::vector<User>& users) {
         std::cout << "Username: " << user.username << "\nEmail: " << user.email << std::endl;
     }
 }
-
