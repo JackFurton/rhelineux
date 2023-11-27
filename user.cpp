@@ -8,15 +8,31 @@
 
 void addUser(std::map<std::string, UserValue>& users) {
     std::string username;
-    UserValue value;
-    std::cout << "enter Username: ";
-    std::cin >> username;
-    std::cout << "enter email: ";
-    std::cin >> value.email;
-    std::cout << "enter password: ";
-    std::cin >> value.password;
+    char addMore = 'y';
 
-    users[username] = value;
+    do { // the lords loop
+        UserValue value;
+        std::cout << "enter Username: ";
+        std::cin >> username;
+        std::cout << "enter email: ";
+        std::cin >> value.email;
+        std::cout << "enter password: ";
+        std::cin >> value.password;
+
+        users[username] = value;
+
+        std::cout << "add another user? (y/n): ";
+        std::cin >> addMore;
+    } while (addMore == 'y' || addMore == 'Y');
+}
+
+bool retrieveUserData(const std::map<std::string, UserValue>& users, const std::string& username, UserValue& outValue) {
+    auto it = users.find(username);
+    if (it != users.end()) {
+        outValue = it->second;
+        return true;
+    }
+    return false;
 }
 
 void displayUsers(const std::map<std::string, UserValue>& users) {

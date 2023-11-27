@@ -28,4 +28,5 @@ void saveToFile(const std::map<std::string, UserValue>& users, int shift);
 std::string encrypt(const std::string& text, int shift);
 std::string decrypt(const std::string& text, int shift);
 
+bool retrieveUserData(const std::map<std::string, UserValue>& users, const std::string& username, UserValue& outValue);
 #endif
