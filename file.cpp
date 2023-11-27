@@ -2,33 +2,34 @@
 #include <iostream>
 #include <vector>
 #include <stdio.h>
+#include <map>
 #include <fstream>
 #include "header.h"
 
-void loadFromFile(std::vector<User>& users, int shift) {
+void loadFromFile(std::map<std::string, UserValue>& users, int shift) {
     std::ifstream file("saved.txt");
-    User temp;
-    while (file >> temp.username >> temp.password >> temp.email) {
+    std::string username, password, email;
+    while (file >> username >> password >> email) {
         #ifdef DECRYPT_MODE
-            temp.username = decrypt(temp.username, shift);
-            temp.password = decrypt(temp.password, shift);
-            temp.email = decrypt(temp.email, shift);
+            username = decrypt(username, shift);
+            password = decrypt(password, shift);
+            email = decrypt(email, shift);
         #endif
-        users.push_back(temp);
+        users[username] = {password, email};
     }
     file.close();
 }
 
-void saveToFile(const std::vector<User>& users, int shift) {
+void saveToFile(const std::map<std::string, UserValue>& users, int shift) {
     std::ofstream file("saved.txt");
-    for (const auto& user : users) {
-        #ifdef DECRYPT_MODE
-            file << user.username << " " << user.password << " " << user.email << "\n";
-        #else
-            file << encrypt(user.username, shift) << " " 
-                 << encrypt(user.password, shift) << " " 
-                 << encrypt(user.email, shift) << "\n";
-        #endif
+    for (const auto& pair : users) {
+        std::string encryptedUsername = encrypt(pair.first, shift);
+        std::string encryptedPassword = encrypt(pair.second.password, shift);
+        std::string encryptedEmail = encrypt(pair.second.email, shift);
+
+        file << encryptedUsername << " "
+             << encryptedPassword << " "
+             << encryptedEmail << "\n";
         }
     file.close();
 }

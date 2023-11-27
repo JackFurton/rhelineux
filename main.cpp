@@ -6,7 +6,7 @@
 
 int main(){
     int shiftKey = 3;
-    std::vector<User> users;
+    std::map<std::string, UserValue> users;
 
     #ifdef DECRYPT_MODE
         std::cout << "Running in decrypt mode" << std::endl;

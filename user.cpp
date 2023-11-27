@@ -3,22 +3,27 @@
 #include <vector>
 #include <stdio.h>
 #include <fstream>
+#include <map>
 #include "header.h"
 
-void addUser(std::vector<User>& users) {
-    User newUser;
+void addUser(std::map<std::string, UserValue>& users) {
+    std::string username;
+    UserValue value;
     std::cout << "enter Username: ";
-    std::cin >> newUser.username;
+    std::cin >> username;
     std::cout << "enter email: ";
-    std::cin >> newUser.email;
+    std::cin >> value.email;
     std::cout << "enter password: ";
-    std::cin >> newUser.password;
+    std::cin >> value.password;
 
-    users.push_back(newUser);
+    users[username] = value;
 }
 
-void displayUsers(const std::vector<User>& users) {
-    for (const auto& user : users) {
-        std::cout << "Username: " << user.username << "\nEmail: " << user.email << std::endl;
+void displayUsers(const std::map<std::string, UserValue>& users) {
+    for (const auto& pair : users) {
+        std::cout << "Username: " << pair.first
+                  << "\nEmail: " << pair.second.email
+                  << "\nPassword: " << pair.second.password
+                  << std::endl;
     }
 }

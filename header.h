@@ -4,18 +4,27 @@
 
 #include <string>
 #include <vector>
+#include <map>
 
-struct User {
-    std::string username;
+struct UserValue {
     std::string password;
     std::string email;
 };
 
+struct User {
+    std::string username;
+    UserValue value;
+};
 
-void addUser(std::vector<User>& users);
-void displayUsers(const std::vector<User>& users);
-void loadFromFile(std::vector<User>& users, int shift);
-void saveToFile(const std::vector<User>& users, int shift);
+
+void addUser(std::map<std::string, UserValue>& users);
+void displayUsers(const std::map<std::string, UserValue>& users);
+
+
+void loadFromFile(std::map<std::string, UserValue>& users,int shift);
+void saveToFile(const std::map<std::string, UserValue>& users, int shift);
+
+
 std::string encrypt(const std::string& text, int shift);
 std::string decrypt(const std::string& text, int shift);
 
