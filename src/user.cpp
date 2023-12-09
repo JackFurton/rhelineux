@@ -9,6 +9,7 @@
 void addUser(std::map<std::string, UserValue>& users) {
     std::string username;
     char addMore = 'y';
+    int shift = 3;
 
     do { // the lords loop
         UserValue value;
@@ -19,7 +20,10 @@ void addUser(std::map<std::string, UserValue>& users) {
         std::cout << "enter password: ";
         std::cin >> value.password;
 
-        users[username] = value;
+        std::string encryptionUsername = encrypt(username, shift);
+        std::string encryptionPassword = encrypt(value.password, shift);
+
+        users[encryptionUsername] = {encryptionPassword, value.email}; // insert into map 
 
         std::cout << "add another user? (y/n): ";
         std::cin >> addMore;

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <string>
 #include <map>
 #include <fstream>
 #include "header.h"
@@ -21,10 +22,15 @@ void loadFromFile(std::map<std::string, UserValue>& users, int shift) {
 
 void saveToFile(const std::map<std::string, UserValue>& users, int shift) {
         std::ofstream file("saved.txt");
+        if (!file.is_open()) {
+            std::cout << "Error opening file\n";
+            return;
+        }
+
         for (const auto& pair : users) {
-            file << pair.first << " "
-                 << pair.second.password << " "
-                 << pair.second.email << "\n";
+            std::string encryptionKey = encrypt(pair.first, shift); 
+            std::string encryptionValue = encrypt(pair.second.password, shift); 
+            file << encryptionKey << " " << encryptionValue << "\n";
         }
         file.close();
 }
