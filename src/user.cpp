@@ -30,7 +30,7 @@ void addUser(std::map<std::string, UserValue>& users) {
     } while (addMore == 'y' || addMore == 'Y');
 }
 
-bool retrieveUserData(const std::map<std::string, UserValue>& users, const std::string& username, UserValue& outValue) {
+/*bool retrieveUserData(const std::map<std::string, UserValue>& users, const std::string& username, UserValue& outValue) {
     auto it = users.find(username);
     if (it != users.end()) {
         outValue = it->second;
@@ -38,7 +38,7 @@ bool retrieveUserData(const std::map<std::string, UserValue>& users, const std::
     }
     return false;
 }
-
+*/
 void displayUsers(const std::map<std::string, UserValue>& users) {
     for (const auto& pair : users) {
         std::cout << "Username: " << pair.first
