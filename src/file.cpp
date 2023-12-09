@@ -3,22 +3,39 @@
 #include <string>
 #include <map>
 #include <fstream>
+#include <stdio.h>
+#include <sstream>
 #include "header.h"
 #include "file.h"
 #include "user.h"
 #include "encrypt.h"
-#include <stdio.h>
+
 
 void loadFromFile(std::map<std::string, UserValue>& users, int shift);
 void saveToFile(const std::map<std::string, UserValue>& users, int shift);
 
 void loadFromFile(std::map<std::string, UserValue>& users, int shift) {
         std::ifstream file("saved.txt");
-        std::string username, password, email;
-        while (file >> username >> password >> email) {
-            users.insert({decrypt(username, shift), {decrypt(password, shift), decrypt(email, shift)}});
+        if (!file) {
+            std::cout << "Error opening file\n";
+            return;
         }
-    } 
+
+        std::string line;
+        std::istringstream iss(line); // Define the iss object
+        while (std::getline(file, line)) {
+            std::string encryptedKey, encryptedValue;
+            if (!(iss >> encryptedKey >> encryptedValue)) {
+                std::cout << "Error reading file\n";
+                continue;
+            }
+            std::string decryptedKey = decrypt(encryptedKey, shift);
+            std::string decryptedValue = decrypt(encryptedValue, shift);
+            users[decryptedKey] = UserValue{decryptedValue};
+        }
+        file.close();
+}
+     
 
 void saveToFile(const std::map<std::string, UserValue>& users, int shift) {
         std::ofstream file("saved.txt");
