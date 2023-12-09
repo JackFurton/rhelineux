@@ -1,10 +1,10 @@
-//-----------------------user.cpp----------------------
 #include <iostream>
 #include <vector>
 #include <stdio.h>
 #include <fstream>
 #include <map>
 #include "header.h"
+#include "user.h"
 
 void addUser(std::map<std::string, UserValue>& users) {
     std::string username;

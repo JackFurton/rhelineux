@@ -1,13 +1,13 @@
-#---------------Makefile-----------------
-CC=g++
-CFLAGS=--std=c++11
-COMMON_SRC=main.cpp user.cpp file.cpp decrypt.cpp encrypt.cpp
-
-decrypt:
-	$(CC) $(CFLAGS) -DDECRYPT_MODE -o run $(COMMON_SRC)
+.PHONY: encrypt decrypt run clean
 
 encrypt:
-	$(CC) $(CFLAGS) -o run $(COMMON_SRC)
+	g++ --std=c++11 -I include -Wall -Wextra -pedantic -O3 -o run src/main.cpp src/user.cpp src/file.cpp src/decrypt.cpp src/encrypt.cpp -DDECRYPT_MODE=0
+
+decrypt:
+	g++ --std=c++11 -I include -Wall -Wextra -pedantic -O3 -o run src/main.cpp src/user.cpp src/file.cpp src/decrypt.cpp src/encrypt.cpp -DDECRYPT_MODE=1
+
+run: $(MODE)
+	./run
 
 clean:
-	rm -f run
+	rm -f run saved.txt
