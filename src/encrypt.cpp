@@ -1,18 +1,17 @@
-#include <iostream>
-#include <vector>
-#include <fstream>
-#include "header.h"
 #include "encrypt.h"
+#include "/opt/homebrew/Cellar/cryptopp/8.9.0/include/cryptopp/aes.h"
+#include "/opt/homebrew/Cellar/cryptopp/8.9.0/include/cryptopp/modes.h"
+#include "/opt/homebrew/Cellar/cryptopp/8.9.0/include/cryptopp/filters.h"
 
-std::string encrypt(const std::string& text, int shift) {
-    std::string encryptedText = text;
+std::string encrypt(const std::string& plainText, const CryptoPP::byte key[CryptoPP::AES::DEFAULT_KEYLENGTH], const CryptoPP::byte iv[CryptoPP::AES::BLOCKSIZE]) {
+    std::string cipherText;
 
-    for (char &c : encryptedText) {
-        if(isalpha(c)) {
-            char base = islower(c) ? 'a' : 'A';
-            c = (c - base + shift) % 26 + base;
-        }
-    }
+    CryptoPP::AES::Encryption aesEncryption(key, CryptoPP::AES::DEFAULT_KEYLENGTH);
+    CryptoPP::CBC_Mode_ExternalCipher::Encryption cbcEncryption(aesEncryption, iv);
 
-    return encryptedText;
+    CryptoPP::StreamTransformationFilter stfEncryptor(cbcEncryption, new CryptoPP::StringSink(cipherText));
+    stfEncryptor.Put(reinterpret_cast<const unsigned char*>(plainText.c_str()), plainText.length() + 1);
+    stfEncryptor.MessageEnd();
+
+    return cipherText;
 }

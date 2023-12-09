@@ -22,7 +22,7 @@ void loadFromFile(std::map<std::string, UserValue>& users, int shift) {
         }
 
         std::string line;
-        std::istringstream iss(line); // Define the iss object
+        std::istringstream iss(line);
         while (std::getline(file, line)) {
             std::string encryptedKey, encryptedValue;
             if (!(iss >> encryptedKey >> encryptedValue)) {
@@ -45,7 +45,7 @@ void saveToFile(const std::map<std::string, UserValue>& users, int shift) {
         }
 
         for (const auto& pair : users) {
-            std::string encryptionKey = encrypt(pair.first, shift); 
+            std::string encryptionKey = encrypt(pair.first, CryptoPP::byte key[CryptoPP::AES::DEFAULT_KEYLENGTH] = {/*key here */}]); 
             std::string encryptionValue = encrypt(pair.second.password, shift); 
             file << encryptionKey << " " << encryptionValue << "\n";
         }

@@ -5,6 +5,7 @@
 #include <map>
 #include "header.h"
 #include "user.h"
+#include "encrypt.h"
 
 void addUser(std::map<std::string, UserValue>& users) {
     std::string username;
@@ -28,22 +29,4 @@ void addUser(std::map<std::string, UserValue>& users) {
         std::cout << "add another user? (y/n): ";
         std::cin >> addMore;
     } while (addMore == 'y' || addMore == 'Y');
-}
-
-/*bool retrieveUserData(const std::map<std::string, UserValue>& users, const std::string& username, UserValue& outValue) {
-    auto it = users.find(username);
-    if (it != users.end()) {
-        outValue = it->second;
-        return true;
-    }
-    return false;
-}
-*/
-void displayUsers(const std::map<std::string, UserValue>& users) {
-    for (const auto& pair : users) {
-        std::cout << "Username: " << pair.first
-                  << "\nEmail: " << pair.second.email
-                  << "\nPassword: " << pair.second.password
-                  << std::endl;
-    }
 }
