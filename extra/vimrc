@@ -1,0 +1,26 @@
+set background=dark
+set hlsearch
+set incsearch
+set noerrorbells
+set novisualbell
+set nocompatible
+set wildmenu
+set re=0
+
+set autoindent
+set softtabstop=4
+set tabstop=4
+set shiftwidth=4
+set expandtab
+syntax enable
+
+vnoremap \y :w !pbcopy -selection clipboard<CR><CR>
+
+set path+=**
+set gp=grep\ -Rn
+
+command! T Ex!
+
+filetype plugin on
+autocmd FileType make set noexpandtab
+autocmd FileType make set tabstop=4 shiftwidth=4

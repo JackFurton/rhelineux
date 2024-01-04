@@ -1,12 +1,19 @@
-CC=g++
-CFLAGS=--std=c++11
-COMMON_SRC=main.cpp user.cpp file.cpp decrypt.cpp encrypt.cpp
+TARGET = bin/dbview
+SRC = $(wildcard src/*.c)
+OBJ = $(patsubst src/%.c, obj/%.o, $(SRC))
 
-decrypt:
-	$(CC) $(CFLAGS) -DECRYPT_MODE -o run $(COMMON_SRC)
+run: clean default
+	./$(TARGET)
 
-encrypt:
-	$(CC) $(CFLAGS) -o run $(COMMON_SRC)
+default: $(TARGET)
 
 clean:
-	rm -f run
+	rm -f obj/*.o
+	rm -f bin/*
+	rm -f *.db
+
+$(TARGET): $(OBJ)
+	gcc -o $@ $?
+
+obj/%.o : src/%.c
+	gcc -c $< -o $@ -Iinclude
